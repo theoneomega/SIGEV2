@@ -1,0 +1,113 @@
+<div class='row-fluid'>
+  <div class='span12 box bordered-box blue-border' style='margin-bottom:0;'>
+    <div class='box-header blue-background'>
+      <div class='title'>Listing people  </div>
+      <div class='actions'>
+        <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+        </a>
+      </div>
+    </div>
+    <div class='box-content box-no-padding'> 
+      <div class='responsive-table'>
+        <div class='scrollable-area'>
+          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th><%= t'.ci' %></th>
+                <th><%= t'.first_name' %></th>
+                <th><%= t'.last_name' %></th>
+                <th><%= t'.last_name2' %></th>
+                <th><%= t'.alias' %></th>
+                <th><%= t'.birth_date' %></th>
+                <th><%= t'.originative' %></th>
+                <th><%= t'.genre' %></th>
+                <th><%= t'.record' %></th>
+                <th><%= t'.profession' %></th>
+                <th><%= t'.observations' %></th>
+                <th><%= t'.status' %></th>
+                <th><%= t'.registered_from' %></th>
+                <th><%= t'.searchable' %></th>
+                <th><%= t'.visible' %></th>
+                <th><%= t'.hide_reason' %></th>
+
+
+                <td>actions</td>
+              </tr>
+            </thead>
+            <tbody>
+              <% @people.each do |person| %>
+                <tr>
+                  <%if can? :show, Person %>
+                    <td><%=link_to person.id, person, :class => 'btn btn-info btn-mini'%></td>
+                  <%else%>
+                    <td><%= label person.id, person.id, :class => 'btn btn-info btn-mini'%></td>
+                  <%end%>
+
+
+                  <% @model = person %> 
+
+                  <td><%= person.ci %></td>
+
+                  <td><%= person.first_name %></td>
+
+                  <td><%= person.last_name %></td>
+
+                  <td><%= person.last_name2 %></td>
+
+                  <td><%= person.alias %></td>
+
+                  <td><%= person.birth_date %></td>
+
+                  <td><%= person.originative %></td>
+
+                  <td><%= person.genre %></td>
+
+                  <td><%= person.record %></td>
+
+                  <td><%= person.profession %></td>
+
+                  <td><%= person.observations %></td>
+
+                  <td><%= person.status_id %></td>
+
+                  <td><%= person.registered_from %></td>
+
+                  <td><%= person.searchable %></td>
+
+                  <td><%= person.visible %></td>
+
+                  <td><%= person.hide_reason %></td>
+                  <%= render "layouts/index_links" %>
+                <% end %>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>ID</th>
+                <th>ci</th>
+                <th>first_name</th>
+                <th>last_name</th>
+                <th>last_name2</th>
+                <th>alias</th>
+                <th>birth_date</th>
+                <th>originative</th>
+                <th>genre</th>
+                <th>record</th>
+                <th>profession</th>
+                <th>observations</th>
+                <th>status</th>
+                <th>registered_from</th>
+                <th>searchable</th>
+                <th>visible</th>
+                <th>hide_reason</th>
+                <th>action</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <%= render 'layouts/action_links' %>
+    </div>
+  </div>
+</div>

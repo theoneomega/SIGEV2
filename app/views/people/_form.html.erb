@@ -1,0 +1,112 @@
+<%= form_for(@person) do |f| %>
+<% if @person.errors.any? %>
+<div id="error_explanation">
+  <% @person.errors.full_messages.each do |msg| %>
+  <div class="alert alert-error">
+    <a class="close" data-dimiss="alert" href="#">&times;</a>
+    <div><%= msg %></div>
+  </div>
+  <% end %>
+</div>
+<% end  %>
+  
+   <p class="control-group">
+      <%= f.label :ci, :class => "control-label" %>
+      <%= f.text_field :ci, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :first_name, :class => "control-label" %>
+      <%= f.text_field :first_name, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :last_name, :class => "control-label" %>
+      <%= f.text_field :last_name, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :last_name2, :class => "control-label" %>
+      <%= f.text_field :last_name2, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :alias, :class => "control-label" %>
+      <%= f.text_field :alias, :class=>"input-block-level" %>
+    </p>
+    
+    <div id="datepicker" class="datepicker input-append">
+      <%= f.label :birth_date, :class => "control-label" %>
+      <%= f.text_field  :birth_date, :data => {:format => "yyyy-MM-dd"}    %>
+      <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i>
+      </span>
+    </div>
+    
+   <p class="control-group">
+      <%= f.label :originative, :class => "control-label" %>
+      <%= f.text_field :originative, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :genre, :class => "control-label" %>
+      <%= f.text_field :genre, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :record, :class => "control-label" %>
+      <%= f.check_box :record, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :profession, :class => "control-label" %>
+      <%= f.text_field :profession, :class=>"input-block-level" %>
+    </p>
+    
+
+<p class="control-group">
+      <%= f.label :observations, :class => "control-label" %>
+      <%= f.text_area :observations, :class=>"input-block-level", :size => "10x5"%>
+    </p>
+
+
+
+  
+   <p class="control-group">
+      <%= f.label :status_id, :class => "control-label" %>
+      <%= f.text_field :status_id, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :registered_from, :class => "control-label" %>
+      <%= f.text_field :registered_from, :class=>"input-block-level" %>
+    </p>
+    
+
+<p class="control-group">
+      <%= f.label :searchable, :class => "control-label" %>
+      <%= f.text_area :searchable, :class=>"input-block-level", :size => "10x5"%>
+    </p>
+
+
+
+  
+   <p class="control-group">
+      <%= f.label :visible, :class => "control-label" %>
+      <%= f.check_box :visible, :class=>"input-block-level" %>
+    </p>
+    
+
+<p class="control-group">
+      <%= f.label :hide_reason, :class => "control-label" %>
+      <%= f.text_area :hide_reason, :class=>"input-block-level", :size => "10x5"%>
+    </p>
+
+
+
+
+<div class="form-actions">
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+</div>
+
+<% end %>

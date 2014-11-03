@@ -1,0 +1,40 @@
+<%= form_for(@eventfile) do |f| %>
+    <% if @eventfile.errors.any? %>
+        <div id="error_explanation">
+          <% @person.errors.full_messages.each do |msg| %>
+              <div class="alert alert-error">
+                <a class="close" data-dimiss="alert" href="#">&times;</a>
+
+                <div><%= msg %></div>
+              </div>
+          <% end %>
+        </div>
+    <% end %>
+
+    <p class="control-group">
+      <%= f.label :upload, :class => "control-label" %>
+      <%= f.file_field :upload, :class => "input-block-level" %>
+    </p>
+
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+
+
+    <p class="control-group">
+      <%= f.label :visible, :class => "control-label" %>
+      <%= f.check_box :visible, :class => "input-block-level" %>
+    </p>
+
+
+    <p class="control-group">
+      <%= f.label :hide_reason, :class => "control-label" %>
+      <%= f.text_area :hide_reason, :class => "input-block-level", :size => "10x5" %>
+    </p>
+
+
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+    </div>
+
+<% end %>

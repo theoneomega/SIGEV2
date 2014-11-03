@@ -1,0 +1,67 @@
+<%= form_for(@vehicle) do |f| %>
+<% if @vehicle.errors.any? %>
+<div id="error_explanation">
+  <% @person.errors.full_messages.each do |msg| %>
+  <div class="alert alert-error">
+    <a class="close" data-dimiss="alert" href="#">&times;</a>
+    <div><%= msg %></div>
+  </div>
+  <% end %>
+</div>
+<% end  %>
+  
+   <p class="control-group">
+      <%= f.label :brand, :class => "control-label" %>
+      <%= f.text_field :brand, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :line, :class => "control-label" %>
+      <%= f.text_field :line, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :model, :class => "control-label" %>
+      <%= f.number_field :model, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :plate, :class => "control-label" %>
+      <%= f.text_field :plate, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :serial_number, :class => "control-label" %>
+      <%= f.text_field :serial_number, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :color, :class => "control-label" %>
+      <%= f.text_field :color, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :stolen, :class => "control-label" %>
+      <%= f.check_box :stolen, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :status, :class => "control-label" %>
+      <%= f.text_field :status, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :person_id, :class => "control-label" %>
+      <%= f.number_field :person_id, :class=>"input-block-level" %>
+    </p>
+    
+   <p class="control-group">
+      <%= f.label :registered_from, :class => "control-label" %>
+      <%= f.text_field :registered_from, :class=>"input-block-level" %>
+    </p>
+  
+<div class="form-actions">
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+</div>
+
+<% end %>

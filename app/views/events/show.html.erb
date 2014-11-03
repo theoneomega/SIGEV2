@@ -1,0 +1,229 @@
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.priority' %></h4>
+
+      <p><%= @event.priority %></p>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.event_date' %></h4>
+
+      <p><%= I18n.l @event.event_date, :format => :long %></p>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.description' %></h4>
+
+      <p><%= @event.description %></p>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.address' %></h4>
+
+      <p><%= @event.address %></p>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.suburb' %></h4>
+
+      <p><%= @event.suburb %></p>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.observations' %></h4>
+
+      <p><%= @event.observations %></p>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.source' %></h4>
+
+      <p><a href="<%= @event.source %>" target="_blank"><%= @event.source %></a></p>
+    </div>
+  </div>
+</div>
+
+
+<%= render "files" %>
+
+
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.area' %></h4>
+
+      <p><%= @event.area %></p>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.crime' %></h4>
+
+      <p><%= @event.crime.description %></p>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.township' %></h4>
+
+      <p><%= @event.township.description if @event.township %></p>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.locality' %></h4>
+
+      <p><%= @event.locality.description if @event.locality %></p>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.place' %></h4>
+
+      <p><%= @event.place.description if @event.place %></p>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.user' %></h4>
+
+      <p><%= @event.user.analyst_number %></p>
+    </div>
+  </div>
+</div>
+<% @event.person.each do |person| %>
+    <div class="row-fluid">
+      <div class='span12 box' style='margin-bottom: 0'>
+        <div class='box-header dark-background'>
+          <div class='title'> <i class="text-warning icon-user"></i> <%= person.status.description %></div>
+          <div class='actions'>
+
+            <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+            </a>
+          </div>
+        </div>
+        <div class='box-content'>
+          <ul >
+            <li>
+              <%= person.first_name if person.first_name %>
+              <%= person.last_name if person.last_name %>
+              <%= person.last_name2 if person.last_name2 %>
+            </li>
+            <li>
+              <%= person.genre %>
+            </li>
+            <% if person.birth_date? %>
+                <li>
+                  <%= I18n.l person.birth_date, :format => :long %>
+                </li>
+            <% end %>
+            <% if person.observations? %>
+                <li>
+                  <%= person.observations %>
+                </li>
+            <% end %>
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <br>
+<% end %>
+
+
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.status' %></h4>
+
+      <p><%= @event.status.description %></p>
+    </div>
+  </div>
+</div>
+
+
+
+<div style='width: 800px;' class="well">
+  <div id="map" style='width: 800px; height: 400px;'>
+    <%= gmaps({
+                      "map_options" => {"auto_zoom" => false, "zoom" => 16},
+                      "markers" => {"data" => @json}
+              })
+    %>
+  </div>
+</div>
+
+
+<div class="row-fluid">
+  <div class="span12 box">
+    <div class="box-content">
+      <h4 class="text-contrast"> <%= t '.tramo_carretero' %></h4>
+
+      <p><%= @event.tramo_carretero %></p>
+    </div>
+  </div>
+</div>
+
+<% if current_user.admin? %>
+    <div class="row-fluid">
+      <div class="span12 box">
+        <div class="box-content">
+          <h4 class="text-contrast"> <%= t '.visible' %></h4>
+
+          <p><%= @event.visible.to_s %></p>
+        </div>
+      </div>
+    </div>
+
+    <% if @event.visible %>
+        <div class="row-fluid">
+          <div class="span12 box">
+            <div class="box-content">
+              <h4 class="text-contrast"> <%= t '.reason_hide' %></h4>
+
+              <p><%= @event.reason_hide %></p>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+<% end %>
+<%= render "layouts/action_links" %>
+
+
+
+<script src="/assets/gmaps4rails/gmaps4rails.base.js.coffee"></script>
+<script src="/assets/gmaps4rails/gmaps4rails.bing.js.coffee"></script>
+<script src="/assets/gmaps4rails/gmaps4rails.googlemaps.js.coffee"></script>
+<script src="/assets/gmaps4rails/gmaps4rails.mapquest.js.coffee"></script>
+<script src="/assets/gmaps4rails/gmaps4rails.openlayers.js.coffee"></script>

@@ -1,0 +1,22 @@
+<%= form_for(@department) do |f| %>
+<% if @department.errors.any? %>
+<div id="error_explanation">
+  <% @person.errors.full_messages.each do |msg| %>
+  <div class="alert alert-error">
+    <a class="close" data-dimiss="alert" href="#">&times;</a>
+    <div><%= msg %></div>
+  </div>
+  <% end %>
+</div>
+<% end  %>
+  
+   <p class="control-group">
+      <%= f.label :description, :class => "control-label" %>
+      <%= f.text_field :description, :class=>"input-block-level" %>
+    </p>
+  
+<div class="form-actions">
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+</div>
+
+<% end %>

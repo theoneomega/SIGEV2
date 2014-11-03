@@ -1,0 +1,27 @@
+<td>
+  <div class="text-right">
+    <% if can? :show, eval(controller_name.singularize.titleize)  %>
+        <%=link_to @model, :class=>"btn btn-info btn-mini" do%>
+            <i class="icon-eye-open"></i>
+        <%end%>
+    <% end %>
+    <% if controller_name == "events" %>
+        <% if can? :assign, Event %>
+            <%=link_to eval("assign_#{controller_name.singularize}_path(@model)"), :class=>"btn btn-inverse btn-mini" do%>
+                <i class="icon-hand-right"></i>
+            <%end%>
+        <% end %>
+    <% end %>
+
+    <% if can? :edit, eval(controller_name.singularize.titleize)  %>
+        <%=link_to eval("edit_#{controller_name.singularize}_path(@model)"), :class=>"btn btn-warning btn-mini" do%>
+            <i class="icon-pencil"></i>
+        <%end%>
+    <% end %>
+    <% if can? :delete, eval(controller_name.singularize.titleize)  %>
+        <%=link_to @model, method: :delete, data: { confirm: '¿Estas seguro?' },:class=>"btn btn-danger btn-mini" do%>
+            <i class="icon-trash"></i>
+        <%end%>
+    <% end  %>
+  </div>
+</td>

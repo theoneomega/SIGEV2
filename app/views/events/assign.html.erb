@@ -1,0 +1,48 @@
+<%= form_for(@event) do |f| %>
+    <% if @event.errors.any? %>
+        <div id="error_explanation">
+          <% @person.errors.full_messages.each do |msg| %>
+              <div class="alert alert-error">
+                <a class="close" data-dimiss="alert" href="#">&times;</a>
+
+                <div><%= msg %></div>
+              </div>
+          <% end %>
+        </div>
+    <% end %>
+
+
+
+    <div class="row-fluid">
+      <div class="span12 box bordered-box purple-border">
+        <div class="box-header purple-background">
+          <div class="title">
+            <i class="icon-pencil"></i>
+            <%= controller.action_name %> <%= controller_name %>
+          </div>
+          <div class="actions">
+
+            <a class="btn box-collapse btn-mini btn-link" href="#"><i></i>
+            </a>
+          </div>
+        </div>
+        <div class="box-content">
+
+
+          <p class="control-group">
+            <%= f.label :priority, :class => "control-label" %>
+            <%= f.select(:priority, PRIORIDADES, {:prompt => t('helpers.select.prompt') }, :class => "input-block-level" )%>
+          </p>
+
+
+          <%= f.submit %>
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+<% end %>

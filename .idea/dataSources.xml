@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="178279749">
+    <data-source source="LOCAL" name="Rails SIGEV2: development" uuid="158114ec-0137-4425-a28f-b166bf60f1fc">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/development.sqlite3</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="MySQL - owncloud@10.18.116.206" uuid="f2fcfcf3-64c1-445f-a2b6-1616d3d115eb">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://10.18.116.206:3306/owncloud</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dff9dfe3dfeddfefdfebdfeedfe7dfe3dfe4df98df9adf9bdf9e</user-password>
+      <schema-pattern>owncloud.*</schema-pattern>
+      <default-schemas>owncloud.*</default-schemas>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails SIGEV2: production" uuid="0c3adb64-b0d0-4d56-b7e6-0f1532c37a70">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/production.sqlite3</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

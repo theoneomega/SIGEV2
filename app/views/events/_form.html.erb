@@ -1,0 +1,237 @@
+<%= form_for(@event) do |f| %>
+    <% if @event.errors.any? %>
+        <div id="error_explanation">
+          <% @person.errors.full_messages.each do |msg| %>
+              <div class="alert alert-error">
+                <a class="close" data-dimiss="alert" href="#">&times;</a>
+
+                <div><%= msg %></div>
+              </div>
+          <% end %>
+        </div>
+    <% end %>
+
+    <p class="control-group">
+      <%= f.label :priority, :class => "control-label" %>
+      <%= f.number_field :priority, :class => "input-block-level" %>
+    </p>
+
+    <div id="datepicker" class="datepicker input-append">
+      <%= f.label :event_date, :class => "control-label" %>
+      <%= f.text_field :event_date, :data => {:format => "yyyy-MM-dd"}, :readonly => true %>
+      <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i>
+      </span>
+    </div>
+
+    <p class="control-group">
+      <%= f.label :description, :class => "control-label" %>
+      <%= f.text_area :description, :class => "input-block-level", :size => "10x5" %>
+    </p>
+
+    <p class="control-group">
+      <%= f.label :address, :class => "control-label" %>
+      <%= f.text_field :address, :class => "input-block-level" %>
+    </p>
+
+    <p class="control-group">
+      <%= f.label :suburb, :class => "control-label" %>
+      <%= f.text_field :suburb, :class => "input-block-level" %>
+    </p>
+
+    <p class="control-group">
+      <%= f.label :observations, :class => "control-label" %>
+      <%= f.text_area :observations, :class => "input-block-level", :size => "10x5" %>
+    </p>
+
+    <p class="control-group">
+      <%= f.label :source, :class => "control-label" %>
+      <%= f.text_field :source, :class => "input-block-level" %>
+    </p>
+
+    <p class="control-group">
+      <%= f.label :area, :class => "control-label" %>
+      <%= f.select :area, AREAS, {:prompt => t('helpers.select.prompt') }, :class => 'input-block-level'%>
+    </p>
+
+    <p class="control-group">
+      <%= f.label :crime_id, :class => "control-label" %>
+      <%= f.collection_select(:crime_id, Crime.order('description asc'), :id, :description, {:prompt => t('helpers.select.prompt')}, :class => 'input-block-level') %>
+    </p>
+
+    <p class="control-group">
+      <%= f.label :township_id, :class => "control-label" %>
+      <%= f.collection_select(:township_id, Township.order('description asc'), :id, :description, {:prompt => t('helpers.select.prompt')}, :class => "input-block-level")%>
+    </p>
+
+    <p class="control-group">
+      <%= f.label :locality_id, :class => "control-label" %>
+      <%= f.select(:locality_id, [], {:prompt => t('helpers.select.prompt')}, :class => 'input-block-level') %>
+
+    </p>
+
+    <p class="control-group">
+      <%= f.label :place_id, :class => "control-label" %>
+      <%= f.collection_select(:place_id, Place.order('description asc'), :id, :description, {:prompt => t('helpers.select.prompt') }, :class => "input-block-level")%>
+    </p>
+
+    <% if can? :show_owner, Event %>
+        <p class="control-group">
+          <%= f.label :user_id, :class => "control-label" %>
+          <%= f.collection_select(:user_id, @analyst_list, :id, :analyst_number, :class => "input-block-level") %>
+        </p>
+    <% end %>
+
+    <% if can? :change_status, Event %>
+        <p class="control-group">
+          <%= f.label :status_id, :class => "control-label" %>
+          <%= f.number_field :status_id, :class => "input-block-level" %>
+        </p>
+    <% end %>
+
+
+
+    <p class="control-group">
+      <%= f.label :tramo_carretero, :class => "control-label" %>
+      <%= f.text_field :tramo_carretero, :class => "input-block-level" %>
+    </p>
+
+    <% if current_user.admin? %>
+        <p class="control-group">
+          <%= f.label :visible, :class => "control-label" %>
+          <%= f.check_box :visible, :class => "input-block-level" %>
+        </p>
+        <p class="control-group">
+          <%= f.label :reason_hide, :class => "control-label" %>
+          <%= f.text_area :reason_hide, :class => "input-block-level", :size => "10x5" %>
+        </p>
+    <% end %>
+
+    <% if controller.action_name == "edit" or controller.action_name == "update" %>
+        <%=f.hidden_field :latitude, :id =>"centre_latitude"%>
+        <%=f.hidden_field :longitude, :id =>"centre_longitude"%>
+    <% end %>
+
+
+    <div style='width: 800px;' class="well">
+      <div id="map" style='width: 800px; height: 400px;'>
+
+        <%= gmaps({"map_options" => {"auto_zoom" => false, "zoom" => 17}, "markers" => {"data" => @json }})%>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+    </div>
+<% end %>
+<%= content_for :scripts do %>
+    <script type="text/javascript" charset="utf-8">
+        var markersArray = [];
+        Gmaps.map.callback = function() {
+            var marker = Gmaps.map.markers[0];
+            if (marker) {
+                // Move existing marker when editing a previously stored location
+                google.maps.event.addListener(marker.serviceObject, 'dragend', function() {
+                    updateFormLocation(this.getPosition());
+                });
+            }
+
+            // On click, clear markers, place a new one, update coordinates in the form
+            google.maps.event.addListener(Gmaps.map.serviceObject, 'click', function(event) {
+                clearOverlays();
+                placeMarker(event.latLng);
+                updateFormLocation(event.latLng);
+            });input-block-level
+        };
+        // Update form attributes with given coordinates
+        function updateFormLocation(latLng) {
+            $('#centre_latitude').val(latLng.lat());
+            $('#centre_longitude').val(latLng.lng());
+            $('#centre_gmaps_zoom').val(Gmaps.map.serviceObject.getZoom());
+        }
+        // Add a marker with an open infowindow
+        function placeMarker(latLng) {
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: Gmaps.map.serviceObject,
+                draggable: true
+            });
+            markersArray.push(marker);
+            // Set and open infowindow
+            var infowindow = new google.maps.InfoWindow({
+                content: '<div class="popup"><h2>Ajustando!</h2><p>Arrastra el marcador a la nueva ubicacion.</p>'
+            });
+            infowindow.open(Gmaps.map.serviceObject, marker);
+            // Listen to drag & drop
+            google.maps.event.addListener(marker, 'dragend', function() {
+                updateFormLocation(this.getPosition());
+            });input-block-level
+        }
+        // Removes the overlays from the map, including the ones loaded with the map itself
+        function clearOverlays() {
+            for (var i = 0; i < markersArray.length; i++) {
+                markersArray[i].setMap(null);
+            }
+            markersArray.length = 0;
+
+            for (var i = 0; i < Gmaps.map.markers.length; i++) {
+                Gmaps.map.clearMarker(Gmaps.map.markers[i]);
+            }
+        }
+        function toggleTB(what) {
+            if (what.checked) {
+                $("#tramo").fadeOut(100);
+                $("#publica").fadeIn(100);
+                document.getElementById('tramo').style.visibility = "hidden";
+            } else {
+                $("#tramo").fadeIn(100);
+                $("#publica").fadeOut(100);
+                document.getElementById('tramo').style.visibility = 'visible';
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('#event_township_id').change(function() {
+                $('#event_locality_id').empty();
+                $.ajax({
+                    url: "/townships/get_localities?id=" + this.value,
+                    dataType: 'json',
+                    error: function(xhr, status, error) {
+                        alert(status);
+                    },
+                    success: setModels
+
+                });
+
+                function setModels(models) {
+                    var dropdown = document.getElementById("event_locality_id");
+                    if (dropdown) {
+                        for (var i = 0; i < models.length; ++i) {
+                            createOption(dropdown, models[i].description, models[i].id);
+                        }
+                    }
+                }
+
+                function createOption(dropdown, text, value) {
+                    var opt = document.createElement('option');
+                    opt.value = value;
+                    opt.text = text;
+                    dropdown.options.add(opt);
+                }
+
+
+            })
+        });
+    </script>
+
+
+<% end %>
+
+
+<script src="/assets/gmaps4rails/gmaps4rails.base.js.coffee"></script>
+<script src="/assets/gmaps4rails/gmaps4rails.bing.js.coffee"></script>
+<script src="/assets/gmaps4rails/gmaps4rails.googlemaps.js.coffee"></script>
+<script src="/assets/gmaps4rails/gmaps4rails.mapquest.js.coffee"></script>
+<script src="/assets/gmaps4rails/gmaps4rails.openlayers.js.coffee"></script>

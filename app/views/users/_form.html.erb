@@ -1,0 +1,114 @@
+<%= simple_form_for @user, :html => {:class=> "form form-horizontal"} do |f| %>
+    <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <% @person.errors.full_messages.each do |msg| %>
+              <div class="alert alert-error">
+                <a class="close" data-dimiss="alert" href="#">&times;</a>
+                <div><%= msg %></div>
+              </div>
+          <% end %>
+        </div>
+    <% end  %>
+
+
+    <div class="control-group">
+      <%= f.label :first_name, :class => "control-label" %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-user"></i></span>
+          <%= f.text_field :first_name, :placeholder => "Nombre(s)" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :last_name, :class => "control-label" %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-user"></i></span>
+          <%= f.text_field :last_name, :placeholder => "Paterno" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :last_name2, :class => "control-label" %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-user"></i></span>
+          <%= f.text_field :last_name2, :placeholder => "Materno" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :analyst_number, :class => "control-label" %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-key"></i></span>
+          <%= f.text_field :analyst_number, :placeholder => "No. Analista" %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="control-group">
+      <%= f.label :username, :class => "control-label" %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-user"></i></span>
+          <%= f.text_field :username, :placeholder => "Username" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :email, :class => "control-label" %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-envelope-alt"></i></span>
+          <%= f.email_field :email, :placeholder => "eMail" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :active %>
+      <div class="controls">
+        <div class='switch' data-off-label='<i class="icon-remove "></i>' data-on-label='<i class="icon-ok"></i>' data-on="success">
+          <%= f.check_box :active %>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :admin %>
+      <div class="controls">
+        <div class='switch' data-off-label='<i class="icon-remove "></i>' data-on-label='<i class="icon-ok"></i>' data-on="danger">
+          <%= f.check_box :admin %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="control-group">
+      <%= f.label :department_id, :class => "control-label" %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-briefcase"></i></span>
+          <%= f.collection_select(:department_id, Department.all, :id, :description, :prompt => true) %>
+        </div>
+      </div>
+    </div>
+
+
+
+    <p>
+      <%= f.association :roles, :as => :check_boxes, :item_wrapper_class => 'test_class' %>
+    </p>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+    </div>
+
+<% end %>

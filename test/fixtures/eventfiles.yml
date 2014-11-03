@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  upload: MyString
+  event_id: 1
+  user_id: 1
+  visible: false
+  hide_reason: MyText
+
+two:
+  upload: MyString
+  event_id: 1
+  user_id: 1
+  visible: false
+  hide_reason: MyText

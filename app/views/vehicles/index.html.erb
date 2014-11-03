@@ -1,0 +1,95 @@
+<div class='row-fluid'>
+  <div class='span12 box bordered-box blue-border' style='margin-bottom:0;'>
+    <div class='box-header blue-background'>
+      <div class='title'><%= t(:listing)%> <%= t(:vehicles) %>  </div>
+      <div class='actions'>
+        <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+        </a>
+      </div>
+    </div>
+    <div class='box-content box-no-padding'> 
+      <div class='responsive-table'>
+        <div class='scrollable-area'>
+          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th><%= t'.brand' %></th>
+                <th><%= t'.line' %></th>
+                <th><%= t'.model' %></th>
+                <th><%= t'.plate' %></th>
+                <th><%= t'.serial_number' %></th>
+                <th><%= t'.color' %></th>
+                <th><%= t'.stolen' %></th>
+                <th><%= t'.status' %></th>
+                <th><%= t'.person' %></th>
+                <th><%= t'.registered_from' %></th>
+
+
+                <td>actions</td>
+              </tr>
+            </thead>
+            <tbody>
+              <% @vehicles.each do |vehicle| %>
+                <tr>
+                  <%if can? :show, Vehicle %>
+                    <td><%=link_to vehicle.id, vehicle, :class => 'btn btn-info btn-mini'%></td>
+                  <%else%>
+                    <td><%= label vehicle.id, vehicle.id, :class => 'btn btn-info btn-mini'%></td>
+                  <%end%>
+
+
+                  <% @model = vehicle %> 
+
+                  <td><%= vehicle.brand %></td>
+
+                  <td><%= vehicle.line %></td>
+
+                  <td><%= vehicle.model %></td>
+
+                  <td><%= vehicle.plate %></td>
+
+                  <td><%= vehicle.serial_number %></td>
+
+                  <td><%= vehicle.color %></td>
+
+                  <td><%= vehicle.stolen %></td>
+
+                  <td><%= vehicle.status %></td>
+
+                  <td><%=link_to vehicle.person, :class => "btn btn-link btn-block" do %>
+
+                      <span class="pull-left" style="margin-bottom:5px"> <i class="icon-user warning"></i> 
+                        <%= vehicle.person.first_name %>
+                      </span>
+                    <% end %>
+                  </td>
+
+                  <td><%= vehicle.registered_from %></td>
+                  <%= render "layouts/index_links" %>
+                <% end %>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>ID</th>
+                <th>brand</th>
+                <th>line</th>
+                <th>model</th>
+                <th>plate</th>
+                <th>serial_number</th>
+                <th>color</th>
+                <th>stolen</th>
+                <th>status</th>
+                <th>person</th>
+                <th>registered_from</th>
+                <th>action</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <%= render 'layouts/action_links' %>
+    </div>
+  </div>
+</div>

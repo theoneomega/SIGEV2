@@ -1,0 +1,67 @@
+<div class='row-fluid'>
+  <div class='span12 box bordered-box blue-border' style='margin-bottom:0;'>
+    <div class='box-header blue-background'>
+      <div class='title'><%= t(:listing)%> <%= t(:localities) %>  </div>
+      <div class='actions'>
+        <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+        </a>
+      </div>
+    </div>
+    <div class='box-content box-no-padding'>
+      <div class='responsive-table'>
+        <div class='scrollable-area'>
+          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th><%= t'.description' %></th>
+              <th><%= t'.township' %></th>
+
+
+              <td>actions</td>
+            </tr>
+            </thead>
+            <tbody>
+            <% @localities.each do |locality| %>
+                <tr>
+                  <%if can? :show, Locality %>
+                      <td><%=link_to locality.id, locality, :class => 'btn btn-info btn-mini'%></td>
+                  <%else%>
+                      <td><%= label locality.id, locality.id, :class => 'btn btn-info btn-mini'%></td>
+                  <%end%>
+
+
+                  <% @model = locality %>
+
+                  <td><%= locality.description %></td>
+
+                  <td>
+                    <%=link_to locality.township, :class => "btn btn-link btn-block" do %>
+
+                      <span class="pull-left" style="margin-bottom:5px"> <i class="icon-map-marker"></i>
+                        <%= locality.township.description %>
+                      </span>
+                    <% end %>
+                  </td>
+
+
+
+                  <%= render "layouts/index_links" %>
+            <% end %>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <th>ID</th>
+              <th>description</th>
+              <th>township</th>
+              <th>action</th>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <%= render 'layouts/action_links' %>
+    </div>
+  </div>
+</div>

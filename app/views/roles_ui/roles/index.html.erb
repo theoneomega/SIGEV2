@@ -1,0 +1,62 @@
+<div class='row-fluid'>
+  <div class='span12 box bordered-box blue-border' style='margin-bottom:0;'>
+    <div class='box-header blue-background'>
+      <div class='title'>Listing roles  </div>
+      <div class='actions'>
+        <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+        </a>
+      </div>
+    </div>
+    <div class='box-content box-no-padding'> 
+      <div class='responsive-table'>
+        <div class='scrollable-area'>
+          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th><%= t'.name' %></th>
+                <th><%= t('.permissions') %></th>
+                <th class="actions"><%=t '.actions', :default => t("helpers.actions") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @roles.each do |role| %>
+                <tr>
+                   <td><%= link_to role.id, { controller: 'roles_ui/roles', action: :show, id: role.id }, :class => "btn btn-mini btn-info" %></td>
+                  <% @model = role %> 
+                  <td><%= role.name %></td>
+                  <td class="text-info"><small><%= role.permissions.map{ |p| "#{'cannot' if p.cannot} #{p.name} #{p.resource}" }.join(', ') %></small></td>
+
+                  <td>
+                    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      { controller: 'roles_ui/roles', action: :edit, id: role.id },
+                      :class => 'btn btn-mini' %>
+                    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      { controller: 'roles_ui/roles', action: :destroy, id: role.id },
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+                  </td>
+                <% end %>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>ID</th>
+                <th>name</th>
+                <th>action</th>
+                <th></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            roles_new_attrs,
+            :class => 'btn btn-primary' %>
+
+<%= link_to t('.report'), permissions_report_attrs, :class => 'btn' %>
+
+    </div>
+  </div>
+</div>

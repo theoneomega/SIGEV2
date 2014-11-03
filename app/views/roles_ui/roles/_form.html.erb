@@ -1,0 +1,35 @@
+<%= simple_form_for @role, :url => roles_form_attrs(@role), :html => { :id => 'roles_ui_form' } do |f| %>
+  <%= f.input :name , :class => "input-block-level"%>
+  <p><strong><%= t('.permissions') %>:</strong></p>
+
+  <%= f.simple_fields_for :permissions do |builder| %>
+    <%= render 'permission_fields', :f => builder %>
+  <% end %>
+
+  <p><%= link_to_add_fields t('.add_permission'), f, :permissions, :class => 'btn btn-mini btn-success' %></p>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+      roles_index_attrs, :class => 'btn' %>
+  </div>
+<% end %>
+
+<script type='text/javascript'>
+
+  function remove_fields(link) {
+    $(link).prev("input[type=hidden]").val("1");
+    $(link).closest(".fields").hide();
+  }
+
+  function add_fields(link, association, content) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_" + association, "g")
+    $(link).parent().before(content.replace(regexp, new_id));
+  }
+
+  $(function() {
+
+  });
+
+</script>

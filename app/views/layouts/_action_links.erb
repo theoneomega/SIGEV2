@@ -1,0 +1,51 @@
+<div class="form-actions">
+  <% if %w{ }.include?(controller_name) %> <%# catalogos con nombre femenino %>
+      <% new_text = t(:new_record_female, :record => eval("t('activerecord.models.#{controller_name.singularize}')")) %>
+  <% else %>
+      <% new_text = t(:new_record_male, :record => eval("t('activerecord.models.#{controller_name.singularize}')")) %>
+  <% end %>
+
+  <% if current_user.admin? %> <%# admin %>
+      <% if controller.action_name == "index"  %>  <%# accion index %>
+          <%= link_to new_text, eval("new_#{controller_name.singularize}_path"), :class=>"btn btn-success" %>
+      <% end %>
+      <% if controller.action_name == "show" %>  <%# accion show %>
+          <% if controller_name == "users" %>
+              <%= link_to t(:edit_record, :record => eval("t('activerecord.models.#{controller_name.singularize}')")), eval("edit_#{controller_name.singularize}_path(@#{controller_name.singularize})"), :class=>"btn btn-warning" %>
+          <% else %>
+              <%= link_to t(:edit_record, :record => eval("t('activerecord.models.#{controller_name.singularize}')")), eval("edit_#{controller_name.singularize}_path(@#{controller_name.singularize})"), :class=>"btn btn-warning" %>
+          <% end %>
+          <%= link_to t(:return_to_index, :model => eval("t(:#{controller_name})").downcase), eval("#{controller_name}_path"), :class=>"btn btn-inverse" %>
+      <% end %>
+
+      <% if controller.action_name == "new" %>
+          <%= link_to t(:return_to_index, :model => eval("t(:#{controller_name})").downcase), eval("#{controller_name}_path"), :class=>"btn btn-inverse" %>
+      <% end %>
+
+  <% else %> <%# no admin %>
+      <% if controller.action_name == "index"  %>  <%# accion index  %>
+          <% if can? :new, controller_name.singularize.camelize.constantize  %>
+              <%= link_to new_text, eval("new_#{controller_name.singularize}_path"), :class=>"btn btn-success" %>
+          <% end %>
+      <% end %>
+      <% if controller.action_name == "show" %> <%# accion show %>
+          <% if controller_name == "users" %>
+              <%= link_to t(:edit_record, :record => eval("t('activerecord.models.#{controller_name.singularize}')")), eval("edit_#{controller_name.singularize}_registration_path"), :class=>"btn btn-warning" %>
+          <% else %>
+              <% if can? :edit,  controller_name.singularize.camelize.constantize%>
+                  <%= link_to t(:edit_record, :record => eval("t('activerecord.models.#{controller_name.singularize}')")), eval("edit_#{controller_name.singularize}_path(@#{controller_name.singularize})"), :class=>"btn btn-warning" %>
+              <% end %>
+          <% end %>
+          <% if can? :index, controller_name.singularize.camelize.constantize %>
+              <%= link_to t(:return_to_index, :model => eval("t(:#{controller_name})").downcase), eval("#{controller_name}_path"), :class=>"btn btn-inverse" %>
+          <% end %>
+      <% end %>
+      <% if controller.action_name == "new" %>
+          <% if can? :index, controller_name.singularize.camelize.constantize %>
+              <%= link_to t(:return_to_index, :model => eval("t(:#{controller_name})").downcase), eval("#{controller_name}_path"), :class=>"btn btn-inverse" %>
+          <% end %>
+      <% end %>
+  <% end %>
+
+
+</div>

@@ -1,0 +1,57 @@
+<div class='row-fluid'>
+  <div class='span12 box bordered-box blue-border' style='margin-bottom:0;'>
+    <div class='box-header blue-background'>
+      <div class='title'><%= t(:listing)%> <%= t(:statuses) %>  </div>
+      <div class='actions'>
+        <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+        </a>
+      </div>
+    </div>
+    <div class='box-content box-no-padding'> 
+      <div class='responsive-table'>
+        <div class='scrollable-area'>
+          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+            <thead>
+              <tr>
+                 <th>ID</th>
+                                  <th><%= t'.description' %></th>
+                                  <th><%= t'.status_type' %></th>
+                                 
+                  
+                <td>actions</td>
+              </tr>
+            </thead>
+            <tbody>
+              <% @statuses.each do |status| %>
+              <tr>
+                <%if can? :show, Status %>
+                <td><%=link_to status.id, status, :class => 'btn btn-info btn-mini'%></td>
+                <%else%>
+                <td><%= label status.id, status.id, :class => 'btn btn-info btn-mini'%></td>
+                <%end%>
+                
+                
+                    <% @model = status %> 
+                  
+                  <td><%= status.description %></td>
+                
+                  <td><%= status.status_type %></td>
+                                <%= render "layouts/index_links" %>
+                <% end %>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>ID</th>
+                                  <th>description</th>
+                                  <th>status_type</th>
+                                <th>action</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <%= render 'layouts/action_links' %>
+    </div>
+  </div>
+</div>

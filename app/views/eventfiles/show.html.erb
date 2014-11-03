@@ -1,0 +1,42 @@
+
+  <div class="row-fluid">
+    <div class="span12 box">
+      <div class="box-content">
+        <h4 class="text-contrast"> <%= t'.upload' %></h4>
+        <p><%= @eventfile.upload %></p>
+      </div>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12 box">
+      <div class="box-content">
+        <h4 class="text-contrast"> <%= t'.event' %></h4>
+        <p><%= @eventfile.event_id %></p>
+      </div>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12 box">
+      <div class="box-content">
+        <h4 class="text-contrast"> <%= t'.user' %></h4>
+        <p><%= @eventfile.user_id %></p>
+      </div>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12 box">
+      <div class="box-content">
+        <h4 class="text-contrast"> <%= t'.visible' %></h4>
+        <p><%= @eventfile.visible %></p>
+      </div>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12 box">
+      <div class="box-content">
+        <h4 class="text-contrast"> <%= t'.hide_reason' %></h4>
+        <p><%= @eventfile.hide_reason %></p>
+      </div>
+    </div>
+  </div>
+  <%= render "layouts/action_links" %>

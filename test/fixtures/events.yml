@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  priority: 1
+  event_date: 2014-09-03
+  description: MyText
+  address: MyString
+  suburb: MyString
+  observations: MyText
+  source: MyString
+  area: MyString
+  crime_id: 1
+  township_id: 1
+  locality_id: 1
+  place_id: 1
+  user_id: 1
+  status_id: 1
+  longitude: 1
+  latitude: 1
+  tramo_carretero: MyString
+  visible: false
+  reason_hide: MyText
+
+two:
+  priority: 1
+  event_date: 2014-09-03
+  description: MyText
+  address: MyString
+  suburb: MyString
+  observations: MyText
+  source: MyString
+  area: MyString
+  crime_id: 1
+  township_id: 1
+  locality_id: 1
+  place_id: 1
+  user_id: 1
+  status_id: 1
+  longitude: 1
+  latitude: 1
+  tramo_carretero: MyString
+  visible: false
+  reason_hide: MyText

@@ -1,0 +1,24 @@
+development:
+  adapter: oracle_enhanced
+  database: orcl
+  host: 10.18.114.94
+  username: sigev2
+  password: DIEID2014
+  port: 1521
+  encoding: utf8
+
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3
+  pool: 5
+  timeout: 5000
+
+
+#production:
+#  adapter: oracle_enhanced
+#  database: orcl
+#  host: 10.18.114.94
+#  username: sigev2
+#  password: DIEID2014
+#  port: 1521
+#  encoding: utf8

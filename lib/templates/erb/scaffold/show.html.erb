@@ -1,0 +1,12 @@
+
+<% attributes.each do |attribute| -%>
+  <div class="row-fluid">
+    <div class="span12 box">
+      <div class="box-content">
+        <h4 class="text-contrast"> <%%= t'.<%= attribute.human_name.downcase.tr(" ", "_") %>' %></h4>
+        <p><%%= @<%= singular_table_name %>.<%= attribute.name %> %></p>
+      </div>
+    </div>
+  </div>
+<% end -%>
+  <%%= render "layouts/action_links" %>

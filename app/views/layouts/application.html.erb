@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= stylesheet_link_tag "gmaps4rails" %>
+
+  <title><%= "SIGE " + eval("t(:" + controller_name + ")") %></title>
+  <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport' />
+
+  <!--[if lt IE 9]>
+  <script src='/assets/html5shiv.js' type='text/javascript'></script>
+  <![endif]-->
+  <link href='/assets/bootstrap/bootstrap.css' media='all' rel='stylesheet' type='text/css' />
+  <link href='/assets/bootstrap/bootstrap-responsive.css' media='all' rel='stylesheet' type='text/css' />
+
+  <!-- / switch buttons -->
+  <link href='/assets/plugins/bootstrap_switch/bootstrap-switch.css' media='all' rel='stylesheet' type='text/css' />
+
+  <!-- / jquery file upload
+  <link href='/assets/plugins/jquery_fileupload/jquery.fileupload-ui.css' media='all' rel='stylesheet' type='text/css' />-->
+
+
+
+
+  <!-- / datatables -->
+  <link href='/assets/plugins/datatables/bootstrap-datatable.css' media='all' rel='stylesheet' type='text/css' />
+
+  <!-- / datetime picker -->
+  <link href='/assets/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.min.css' media='all' rel='stylesheet' type='text/css' />
+  <!-- / daterange picker) -->
+  <link href='/assets/plugins/bootstrap_daterangepicker/bootstrap-daterangepicker.css' media='all' rel='stylesheet' type='text/css' />
+
+  <!-- / flatty theme -->
+  <link href='/assets/light-theme.css' id='color-settings-body-color' media='all' rel='stylesheet' type='text/css' />
+
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
+<body class='fixed-header fixed-navigation contrast-fb '>
+<header>
+  <div class='navbar navbar-fixed-top'>
+    <div class='navbar-inner'>
+      <div class='container-fluid'>
+        <a class='brand' href='<%= root_path %>'>
+          <i class='icon-heart-empty'></i>
+          <span class='hidden-phone'>SIGE</span>
+        </a>
+        <a class='toggle-nav btn pull-left' href='#'>
+          <i class='icon-reorder'></i>
+        </a>
+        <ul class='nav pull-right'>
+
+          <li class='dropdown dark only-icon widget'>
+            <a class='dropdown-toggle' data-toggle='dropdown' href='/'>
+              <div class='label'>5</div> oficios
+            </a>
+          </li>
+
+          <% if signed_in? %>
+              <li class='dropdown dark only-icon'>
+                <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                  <i class="icon-user"></i>
+                    <span class='user-name hidden-phone'>
+                      <%= current_user.username %>
+                    </span>
+                  <b class='caret'></b>
+                </a>
+                <ul class='dropdown-menu'>
+                  <li>
+                    <%=link_to current_user do %>
+                        <i class="icon-user"></i> profile
+                    <% end %>
+
+                  </li>
+                  <li>
+                    <a href='user_profile.html'>
+                      <i class='icon-cog'></i>
+                      Settings
+                    </a>
+                  </li>
+                  <li class='divider'></li>
+                  <li>
+
+                  <%= link_to destroy_user_session_path, :method => :delete  do %>
+                        <i class='icon-signout'></i>
+                        <%= t(:signout) %>
+                    <% end %>
+                  </li>
+                </ul>
+              </li>
+
+
+          <% else %>
+              <li class='dropdown dark only-icon widget'>
+
+                <%= link_to new_user_session_path  do  %>
+                    <i class="icon-signin"></i> <%= t(:singin) %>
+                <% end %>
+
+              </li>
+          <% end %>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</header>
+<div id='wrapper'>
+<%#*<div id='main-nav-bg'></div>%>
+
+
+  <%= render "layouts/sidebar" %>
+
+  <section id='content'>
+    <div class='container-fluid'>
+      <div class='row-fluid' id='content-wrapper'>
+        <div class='span12'>
+          <div class="row-fluid">
+            <div class="span12">
+              <div class='page-header'>
+                <h1 class="pull-left">
+                  <i class="icon-table"></i>
+                  <span><%= eval("t(:" + controller_name + ")") %> </span>
+                </h1>
+              </div>
+              <% if flash[:notice] %>
+                  <div class='alert alert-info'>
+                    <a class='close' data-dismiss='alert' href='#'>&times;</a>
+                    <div>
+                      <%= flash[:notice] %>
+                    </div>
+                  </div>
+              <% end %>
+
+              <% if flash[:alert] %>
+                  <div class='alert alert-block'>
+                    <a class='close' data-dismiss='alert' href='#'>&times;</a>
+                    <div>
+                      <%= flash[:alert] %>
+                    </div>
+                  </div>
+              <% end %>
+
+              <% if flash[:success] %>
+                  <div class='alert alert-success'>
+                    <a class='close' data-dismiss='alert' href='#'>&times;</a>
+                    <div>
+                      <%= flash[:success] %>
+                    </div>
+                  </div>
+              <% end %>
+              <% if flash[:error] %>
+                  <div class='alert alert-error'>
+                    <a class='close' data-dismiss='alert' href='#'>&times;</a>
+                    <div>
+                      <%= flash[:error] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+
+
+
+
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<%= yield :scripts %>
+<!-- / jquery -->
+
+<!-- / jquery mobile events (for touch and slide) -->
+<script src='/assets/plugins/mobile_events/jquery.mobile-events.min.js' type='text/javascript'></script>
+
+<!-- / jquery ui -->
+<script src='/assets/jquery_ui/jquery-ui.min.js' type='text/javascript'></script>
+<!-- / bootstrap -->
+<script src='/assets/bootstrap/bootstrap.min.js' type='text/javascript'></script>
+
+<!-- / sparklines
+<script src='/assets/plugins/sparklines/jquery.sparkline.min.js' type='text/javascript'></script>-->
+<!-- / flot charts
+<script src='/assets/plugins/flot/flot.min.js' type='text/javascript'></script>
+<script src='/assets/plugins/flot/flot.resize.js' type='text/javascript'></script>
+<script src='/assets/plugins/flot/flot.pie.js' type='text/javascript'></script>-->
+<!-- / bootstrap switch-->
+<script src='/assets/plugins/bootstrap_switch/bootstrapSwitch.min.js' type='text/javascript'></script>
+<!-- / fullcalendar
+<script src='/assets/plugins/fullcalendar/fullcalendar.min.js' type='text/javascript'></script>-->
+<!-- / datatables -->
+<script src='/assets/plugins/datatables/jquery.dataTables.min.js' type='text/javascript'></script>
+<script src='/assets/plugins/datatables/jquery.dataTables.columnFilter.js' type='text/javascript'></script>
+<!-- / wysihtml5
+<script src='/assets/plugins/common/wysihtml5.min.js' type='text/javascript'></script>
+<script src='/assets/plugins/common/bootstrap-wysihtml5.js' type='text/javascript'></script>-->
+<!-- / select2
+<script src='/assets/plugins/select2/select2.js' type='text/javascript'></script>-->
+<!-- / color picker
+<script src='/assets/plugins/bootstrap_colorpicker/bootstrap-colorpicker.min.js' type='text/javascript'></script>-->
+<!-- / mention
+<script src='/assets/plugins/mention/mention.min.js' type='text/javascript'></script>-->
+<!-- / input mask
+<script src='/assets/plugins/input_mask/bootstrap-inputmask.min.js' type='text/javascript'></script>-->
+<!-- / fileinput
+<script src='/assets/plugins/fileinput/bootstrap-fileinput.js' type='text/javascript'></script> -->
+<!-- / modernizr -->
+<script src='/assets/plugins/modernizr/modernizr.min.js' type='text/javascript'></script>
+<!-- / retina -->
+<script src='/assets/plugins/retina/retina.js' type='text/javascript'></script>
+
+ <!-- timeago
+<script src='/assets/plugins/timeago/jquery.timeago.js' type='text/javascript'></script>-->
+<!-- / slimscroll
+<script src='/assets/plugins/slimscroll/jquery.slimscroll.min.js' type='text/javascript'></script>-->
+<!-- / autosize (for textareas)
+<script src='/assets/plugins/autosize/jquery.autosize-min.js' type='text/javascript'></script>-->
+<!-- / charCount
+<script src='/assets/plugins/charCount/charCount.js' type='text/javascript'></script>-->
+<!-- / validate
+<script src='/assets/plugins/validate/jquery.validate.min.js' type='text/javascript'></script>
+<script src='/assets/plugins/validate/additional-methods.js' type='text/javascript'></script>-->
+<!-- / naked password
+<script src='/assets/plugins/naked_password/naked_password-0.2.4.min.js' type='text/javascript'></script>-->
+<!-- / nestable
+<script src='/assets/plugins/nestable/jquery.nestable.js' type='text/javascript'></script>-->
+<!-- / tabdrop
+<script src='/assets/plugins/tabdrop/bootstrap-tabdrop.js' type='text/javascript'></script>-->
+<!-- / jgrowl
+<script src='/assets/plugins/jgrowl/jquery.jgrowl.min.js' type='text/javascript'></script>-->
+<!-- / bootbox
+<script src='/assets/plugins/bootbox/bootbox.min.js' type='text/javascript'></script>-->
+<!-- / inplace editing
+<script src='/assets/plugins/xeditable/bootstrap-editable.min.js' type='text/javascript'></script>
+<script src='/assets/plugins/xeditable/wysihtml5.js' type='text/javascript'></script>-->
+<!-- / ckeditor
+<script src='/assets/plugins/ckeditor/ckeditor.js' type='text/javascript'></script>-->
+<!-- / filetrees
+<script src='/assets/plugins/dynatree/jquery.dynatree.min.js' type='text/javascript'></script>-->
+<!-- / datetime picker -->
+<script src='/assets/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.js' type='text/javascript'></script>
+<!-- / daterange picker -->
+<script src='/assets/plugins/bootstrap_daterangepicker/moment.min.js' type='text/javascript'></script>
+<script src='/assets/plugins/bootstrap_daterangepicker/bootstrap-daterangepicker.js' type='text/javascript'></script>
+<!-- / max length
+<script src='/assets/plugins/bootstrap_maxlength/bootstrap-maxlength.min.js' type='text/javascript'></script>-->
+<!-- / dropdown hover
+<script src='/assets/plugins/bootstrap_hover_dropdown/twitter-bootstrap-hover-dropdown.min.js' type='text/javascript'></script> -->
+<!-- / slider nav (address book)
+<script src='/assets/plugins/slider_nav/slidernav-min.js' type='text/javascript'></script>-->
+<!-- / fuelux
+<script src='/assets/plugins/fuelux/wizard.js' type='text/javascript'></script>-->
+<!-- / flatty theme -->
+<script src='/assets/nav.js' type='text/javascript'></script>
+<script src='/assets/tables.js' type='text/javascript'></script>
+<script src='/assets/theme.js' type='text/javascript'></script>
+<!-- / demo
+<script src='/assets/demo/jquery.mockjax.js' type='text/javascript'></script>
+<script src='/assets/demo/inplace_editing.js' type='text/javascript'></script>
+<script src='/assets/demo/charts.js' type='text/javascript'></script>
+<script src='/assets/demo/demo.js' type='text/javascript'></script>-->
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ci: MyString
+  first_name: MyString
+  last_name: MyString
+  last_name2: MyString
+  alias: MyString
+  birth_date: 2014-08-27
+  originative: MyString
+  genre: MyString
+  record: false
+  profession: MyString
+  observations: MyText
+  status_id: MyString
+  registered_from: MyString
+  searchable: MyText
+  visible: false
+  hide_reason: MyText
+
+two:
+  ci: MyString
+  first_name: MyString
+  last_name: MyString
+  last_name2: MyString
+  alias: MyString
+  birth_date: 2014-08-27
+  originative: MyString
+  genre: MyString
+  record: false
+  profession: MyString
+  observations: MyText
+  status_id: MyString
+  registered_from: MyString
+  searchable: MyText
+  visible: false
+  hide_reason: MyText

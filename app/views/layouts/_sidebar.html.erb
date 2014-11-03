@@ -1,0 +1,50 @@
+<div id='main-nav-bg'></div>
+<nav class='main-nav-fixed' id='main-nav'>
+  <div id='main-nav-bg'></div>
+  <nav class='' id='main-nav'>
+    <div class='navigation'>
+      <ul class='nav nav-stacked'>
+        <li class=<%= controller_name == "welcome" ? "active" : "" %>>
+          <a href='<%= root_path %> '>
+            <i class='icon-dashboard'></i>
+            <span>Inicio</span>
+          </a>
+        </li>
+        <% if signed_in? %>
+            <% @models = Dir['app/models/*.rb'].map { |f| File.basename(f, '.*').camelize.constantize.name } %>
+            <% @models -= %w{Ability Assignment Permission Role EventFile} %>
+            <% active = "active" %>
+            <% @models.each do |model| %>
+                <% if can? :index, model.constantize %>
+                    <li class=<%= "active" if controller_name == model.pluralize.downcase %>>
+                      <a href=<%= eval("#{model.downcase.pluralize}_path") %>> <!-- Add the class "current" to current menu item -->
+                        <% case model %>
+                        <% when "Person" %>
+                            <i class='icon-group'></i>
+                        <% when "Vehicle" %>
+                            <i class='icon-truck'></i>
+                        <% else %>
+                            <i class='icon-arrow-right'></i>
+                        <% end %>
+                        <span><%= eval("t(:#{model.pluralize.downcase})") %></span>
+                      </a>
+                    </li>
+                <% end %>
+            <% end %>
+
+
+            <% if current_user.admin? %>
+
+
+                <li class=<%= "active" if controller_name == "roles" %>>
+                  <a href=<%= eval("roles_path") %>> <!-- Add the class "current" to current menu item -->
+                    <i class='icon-lock'></i>
+                    <span><%= eval("t(:roles)") %></span>
+                  </a>
+                </li>
+            <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</nav>
